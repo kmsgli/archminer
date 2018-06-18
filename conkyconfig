@@ -1,0 +1,69 @@
+background yes
+use_xft yes
+xftfont Sans:size=8
+xftalpha 1
+update_interval .5
+total_run_times 0
+own_window yes
+own_window_transparent yes
+own_window_type normal
+own_window_hints undecorated,below,sticky,skip_taskbar,skip_pager
+double_buffer yes
+minimum_size 200 200
+maximum_width 250
+
+draw_shades yes
+draw_outline no
+draw_borders no
+draw_graph_borders yes
+default_color grey
+default_shade_color black
+default_outline_color white
+alignment top_right
+gap_x 12
+gap_y 12
+no_buffers yes
+uppercase no
+cpu_avg_samples 2
+override_utf8_locale no
+
+TEXT
+
+${font Open Sans Light:pixelsize=60}${time %H:%M}${font}
+${font Open Sans Light:pixelsize=20}${time %m.%d.%Y}${font}
+
+
+${font sans-serif:bold:size=8}PROCESSORS ${hr 2}
+${color red} ${font sans-serif:normal:size=8}${cpugraph cpu1} 
+${color grey}
+CPU1: ${cpu cpu1}% ${cpubar cpu1}
+CPU2: ${cpu cpu2}% ${cpubar cpu2}
+
+${font sans-serif:bold:size=8}MEMORY ${hr 2}
+${font sans-serif:normal:size=8}RAM $alignc $mem / $memmax $alignr 
+$memperc%$membar
+
+IP Addres${alignr} ${addr enp2s0}
+up ${upspeed enp2s0}${alignr}down ${downspeed enp2s0}
+${color red} ${upspeedgraph enp2s0 32, 100}${alignr}${downspeedgraph enp2s0 32, 100}
+total ${totalup enp23s0}${alignr}total ${totaldown enp2s0}
+${color grey}
+
+${font sans-serif:bold:size=15}
+${color red}GPU Specs:
+${font sans-serif:bold:size=10}
+${color grey}${exec nvidia-smi --query-gpu=gpu_name --format=csv,noheader,nounits} $color
+
+${font sans-serif:bold:size=15}
+${color red}GPU Temperatures:
+${font sans-serif:bold:size=10}
+${color grey} GPU 0: ${execi 60 nvidia-settings -query [gpu:0]/GPUCoreTemp -t} C
+${color grey} GPU 1: ${execi 60 nvidia-settings -query [gpu:1]/GPUCoreTemp -t} C
+${color grey} GPU 2: ${execi 60 nvidia-settings -query [gpu:2]/GPUCoreTemp -t} C
+${color grey} GPU 3: ${execi 60 nvidia-settings -query [gpu:3]/GPUCoreTemp -t} C
+${color grey} GPU 4: ${execi 60 nvidia-settings -query [gpu:4]/GPUCoreTemp -t} C
+${color grey} GPU 5: ${execi 60 nvidia-settings -query [gpu:5]/GPUCoreTemp -t} C
+
+${exec nvidia-smi -a | grep Fan $alignl}
+
+
