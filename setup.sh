@@ -208,10 +208,9 @@ SERVICE=ethminer.service
 if (! systemctl -q is-active $SERVICE)
    then
    sudo systemctl restart $SERVICE
-   python /home/$name/ethminer/miner_pushover.py
 
 fi
-exit 0" > checktimer.sh
+exit 0" > checkminer.sh
 
 
 #giving shell scripts execution privelages
