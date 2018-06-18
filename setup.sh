@@ -1,15 +1,5 @@
 #!/bin/bash
 
-echo "Updating system"
-Pacman -Syu
-
-echo "Installing software"
-Pacman -S nvidia nvidia-settings conky
-
-
-#####################################################################################################
-
-
 #get user input
 echo "Lets gathering some data"
 sleep 1s
